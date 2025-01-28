@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parrot Hybrid Generator</title>
+    <link rel="stylesheet" href="/src/staticcss">
+</head>
+<body>
+    <h1>Hybrid Parrot Generator</h1>
+    <form id="promptForm">
+        <label for="prompt">Describe your parrot hybrid:</label><br>
+        <textarea id="prompt" name="prompt" rows="4" cols="50" required>
+You are a specialist in parrot breeding, even in a fictional world. Simulate what the offspring of a rudosterka zielonolica and a nierozłączka would look like.
+        </textarea><br>
+        <button type="submit">Generate Image</button>
+    </form>
+
+    <!-- Loading spinner -->
+    <div id="loading" style="display: none;">
+        <div class="spinner"></div>
+        Generating...
+    </div>
+
+    <!-- Response container -->
+    <div id="response"></div>
+
+    <script src="/src/static.js"></script>
+</body>
+</html>
