@@ -4,27 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parrot Hybrid Generator</title>
-    <link rel="stylesheet" href="/src/staticcss">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <h1>Hybrid Parrot Generator</h1>
-    <form id="promptForm">
+    <div id="mode-selector">
+        <label>
+            <input type="radio" name="mode" value="text" checked>
+            Generate by Text Description
+        </label>
+        <label>
+            <input type="radio" name="mode" value="photos">
+            Generate by Photos
+        </label>
+    </div>
+
+    <form id="textForm" class="generation-form">
         <label for="prompt">Describe your parrot hybrid:</label><br>
-        <textarea id="prompt" name="prompt" rows="4" cols="50" required>
-You are a specialist in parrot breeding, even in a fictional world. Simulate what the offspring of a rudosterka zielonolica and a nierozłączka would look like.
-        </textarea><br>
+        <textarea id="prompt" name="prompt" rows="4" cols="50" required></textarea><br>
         <button type="submit">Generate Image</button>
     </form>
 
-    <!-- Loading spinner -->
+    <form id="photoForm" class="generation-form" style="display: none;" enctype="multipart/form-data">
+        <label for="photo1">Upload First Parent Parrot Image:</label><br>
+        <input type="file" id="photo1" name="photo1" accept="image/*" ><br>
+        <label for="photo2">Upload Second Parent Parrot Image:</label><br>
+        <input type="file" id="photo2" name="photo2" accept="image/*" ><br>
+        <button type="submit">Generate Image</button>
+    </form>
+
     <div id="loading" style="display: none;">
         <div class="spinner"></div>
         Generating...
     </div>
 
-    <!-- Response container -->
     <div id="response"></div>
 
-    <script src="/src/static.js"></script>
+    <script src="/static/script.js"></script>
 </body>
 </html>

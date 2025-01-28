@@ -1,38 +1,58 @@
-const form = document.getElementById('promptForm');
+const modeSelector = document.getElementById('mode-selector');
+const textForm = document.getElementById('textForm');
+const photoForm = document.getElementById('photoForm');
 const responseDiv = document.getElementById('response');
 const loadingDiv = document.getElementById('loading');
 
-form.addEventListener('submit', async (e) => {
+// Przełączanie między trybami
+modeSelector.addEventListener('change', (e) => {
+    const mode = document.querySelector('input[name="mode"]:checked').value;
+    if (mode === 'text') {
+        textForm.style.display = 'block';
+        photoForm.style.display = 'none';
+    } else {
+        textForm.style.display = 'none';
+        photoForm.style.display = 'block';
+    }
+});
+
+// Obsługa formularza tekstowego
+textForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const prompt = document.getElementById('prompt').value;
 
-    // Wyświetl spinner ładowania
     loadingDiv.style.display = 'block';
     responseDiv.innerHTML = '';
 
-    try {
-        // Wysłanie żądania POST do backendu
-        const response = await fetch('/generate-image', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt })
-        });
+    const response = await fetch('/generate-image-text', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt })
+    });
 
-        const data = await response.json();
+    const data = await response.json();
+    loadingDiv.style.display = 'none';
+    responseDiv.innerHTML = data.image_url
+        ? `<img src="${data.image_url}" alt="Generated Parrot">`
+        : `<p>Error: ${data.error}</p>`;
+});
 
-        // Ukryj spinner ładowania
-        loadingDiv.style.display = 'none';
+// Obsługa formularza przesyłania zdjęć
+photoForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-        if (data.image_url) {
-            // Wyświetl obraz
-            responseDiv.innerHTML = `<img src="${data.image_url}" alt="Generated Parrot" />`;
-        } else {
-            // Wyświetl błąd
-            responseDiv.innerHTML = `<p><strong>Error:</strong> ${data.error}</p>`;
-        }
-    } catch (error) {
-        // Ukryj spinner i pokaż błąd
-        loadingDiv.style.display = 'none';
-        responseDiv.innerHTML = `<p><strong>Error:</strong> Something went wrong!</p>`;
-    }
+    const formData = new FormData(photoForm);
+    loadingDiv.style.display = 'block';
+    responseDiv.innerHTML = '';
+
+    const response = await fetch('/generate-image-photos', {
+        method: 'POST',
+        body: formData
+    });
+
+    const data = await response.json();
+    loadingDiv.style.display = 'none';
+    responseDiv.innerHTML = data.image_url
+        ? `<img src="${data.image_url}" alt="Generated Parrot">`
+        : `<p>Error: ${data.error}</p>`;
 });
