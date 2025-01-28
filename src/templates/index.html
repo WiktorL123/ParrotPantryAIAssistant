@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parrot Hybrid Generator</title>
+    <title>Parrot Hybrid Generator & Vet Assistant</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h1>Hybrid Parrot Generator</h1>
+    <h1>Hybrid Parrot Generator & Vet Assistant</h1>
     <div id="mode-selector">
         <label>
             <input type="radio" name="mode" value="text" checked>
@@ -17,14 +17,20 @@
             <input type="radio" name="mode" value="photos">
             Generate by Photos
         </label>
+        <label>
+            <input type="radio" name="mode" value="vet">
+            Vet Assistant
+        </label>
     </div>
 
+    <!-- Form for text-based generation -->
     <form id="textForm" class="generation-form">
         <label for="prompt">Describe your parrot hybrid:</label><br>
-        <textarea id="prompt" name="prompt" rows="4" cols="50" required></textarea><br>
+        <textarea placeholder="e.g., Generate an image of a hybrid parrot combining African grey parrot and macaw features." id="prompt" name="prompt" rows="4" cols="50" required></textarea><br>
         <button type="submit">Generate Image</button>
     </form>
 
+    <!-- Form for image-based generation -->
     <form id="photoForm" class="generation-form" style="display: none;" enctype="multipart/form-data">
         <label for="photo1">Upload First Parent Parrot Image:</label><br>
         <input type="file" id="photo1" name="photo1" accept="image/*" ><br>
@@ -33,12 +39,19 @@
         <button type="submit">Generate Image</button>
     </form>
 
+    <!-- Form for Vet Assistant -->
+    <form id="vetForm" class="generation-form" style="display: none;">
+        <label for="problem">Describe your parrot's health issue:</label><br>
+        <textarea placeholder="e.g., My parrot is lethargic and not eating." id="problem" name="problem" rows="4" cols="50" required></textarea><br>
+        <button type="submit">Get Advice</button>
+    </form>
+
     <div id="loading" style="display: none;">
         <div class="spinner"></div>
-        Generating...
+        Loading...
     </div>
 
-    <div id="response"></div>
+    <div id="response" class="markdown-body"></div>
 
     <script src="/static/script.js"></script>
 </body>
