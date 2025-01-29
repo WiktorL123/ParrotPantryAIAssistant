@@ -4,16 +4,13 @@ import os
 from dotenv import load_dotenv
 import requests
 
-# Załaduj klucze z pliku .env
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 HUGGINGFACE_API_TOKEN = os.getenv("HUGGINGFACE_API_TOKEN")
 HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models/google/vit-base-patch16-224"
 
-# Minimalna pewność
 MIN_CONFIDENCE = 0.6
 
-# Lista gatunków papug
 VALID_PARROT_LABELS = [
     "parrot",
     "macaw",
