@@ -9,7 +9,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 HUGGINGFACE_API_TOKEN = os.getenv("HUGGINGFACE_API_TOKEN")
 HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models/google/vit-base-patch16-224"
 
-MIN_CONFIDENCE = 0.6
+MIN_CONFIDENCE = 0.4
 
 VALID_PARROT_LABELS = [
     "parrot",
